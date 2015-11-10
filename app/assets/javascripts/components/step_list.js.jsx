@@ -10,7 +10,7 @@ var StepsList = React.createClass({
     return (
       <div>
         <StepsForm todo={todo} />
-        <ul>
+        <ul className='todo-item-detail-steplist' >
           {
             this.state.steps.map(function (step, id) {
               return (

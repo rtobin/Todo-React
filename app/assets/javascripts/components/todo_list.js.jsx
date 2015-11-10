@@ -5,18 +5,50 @@ var TodosList = React.createClass({
     });
   },
 
+  handleClick: function (e) {
+    e.preventDefault();
+    var curTodo = parseInt(e.currentTarget.id);
+    this.setState({curTodo: curTodo});
+  },
+
   render: function () {
+    var that = this;
+    var todoId = this.state.curTodo;
+    var todos = this.state.todos;
+    var mainView;
+    for (var i = 0; i < todos.length; i++) {
+      if (todos[i].id === todoId) {
+        mainView = todos[i];
+      }
+    }
+    var result;
+    if (mainView) {
+      result = <TodoDetailView todo={mainView} />;
+    }
+
     return (
-        <div>
+      <div>
+        <div className="todo-sidebar">
           <TodosForm />
           <ul>
-            {
-              this.state.todos.map(function (todo, id) {
-                return <TodosListItem key={id} todo={todo} />;
-              })
-            }
+          {this.state.todos.map(function(todo){
+              return (
+                <li
+                  id={todo.id}
+                  key={todo.id}
+                  onClick={that.handleClick}>{todo.title}
+                </li>
+              );
+            })
+          }
+
           </ul>
         </div>
+
+        <div className="todo-main-view">
+          {result}
+        </div>
+      </div>
     );
   },
 
@@ -87,8 +119,12 @@ var TodosForm = React.createClass({
   render: function () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input className="form-title" type="text" onChange={this.updateTitle} value={this.state.title} />
-        <textarea className="form-body" onChange={this.updateBody} value={this.state.body} />
+        <label>Title
+          <input className="form-title" type="text" onChange={this.updateTitle} value={this.state.title} />
+        </label>
+        <label>Body
+          <textarea className="form-body" onChange={this.updateBody} value={this.state.body} />
+        </label>
         <button>Add Todo</button>
       </form>
     );
@@ -108,7 +144,7 @@ var DoneButton = React.createClass({
 
 var TodoDetailView = React.createClass({
   getInitialState: function () {
-    return {expanded: false};
+    return {expanded: true};
   },
 
   toggleBody: function () {
@@ -126,8 +162,9 @@ var TodoDetailView = React.createClass({
 
     return (
       <div className="todo-item-detail">
-        <div onClick={this.toggleBody} className={titleClass}>{todo.title}</div>
+        <div className={titleClass}>{todo.title}</div>
         {body}
+        <StepsList key={todo.id} todo={todo} />
       </div>
     );
   }

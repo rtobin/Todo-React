@@ -1,3 +1,102 @@
 // Place all the styles related to the Todos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body, div, h1, ul {
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+  font: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+
+  background: transparent;
+}
+
+ul {
+  list-style: none;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+div#container {
+  width: 800px;
+  margin: auto;
+}
+.todo-sidebar {
+  width: 139px;
+  height: 560px;
+  float: left;
+  padding: 20px;
+  border-bottom: 1px solid brown;
+  border-left: 1px solid brown;
+  border-top: 1px solid brown;
+  background: lightblue;
+}
+
+.todo-sidebar li {
+  font-weight: 700;
+  border: 1px dotted red;
+}
+
+.todo-sidebar li:hover {
+  color: white;
+  background: red;
+  cursor: pointer;
+  font-weight: 700;
+  border: 1px dotted red;
+}
+
+.todo-sidebar > ul {
+  padding-top: 20px;
+}
+
+form {
+
+}
+
+.todo-main-view {
+  border: 1px solid brown;
+  float: left;
+  padding: 20px;
+  height: 560px;
+  width: 568px;
+  background: lightgreen;
+}
+
+.todo-main-view .title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 34px;
+}
+
+.todo-item-detail-steplist {
+  list-style: none;
+  padding: 20px;
+  height: 300px;
+  border: 1px solid purple;
+
+}
+
+.step-item {
+  float: left;
+  width: 150px;
+  padding: 5px;
+  background: lightgrey;
+  border: 1px solid lightgreen;
+  border-radius: 15px;
+  text-align: center;
+}
+
+button {
+  background: gray;
+  font-weight: 700;
+}
