@@ -7,16 +7,16 @@ var TodosList = React.createClass({
 
   render: function () {
     return (
-      <div>
-        <TodosForm />
-        <ul>
-          {
-            this.state.todos.map(function (todo, id) {
-              return <TodosListItem key={id} todo={todo} />;
-            })
-          }
-        </ul>
-      </div>
+        <div>
+          <TodosForm />
+          <ul>
+            {
+              this.state.todos.map(function (todo, id) {
+                return <TodosListItem key={id} todo={todo} />;
+              })
+            }
+          </ul>
+        </div>
     );
   },
 
@@ -36,6 +36,7 @@ var TodosList = React.createClass({
 
 var TodosListItem = React.createClass({
   handleDestroy: function (e) {
+    e.preventDefault();
     TodoStore.destroy(parseInt(e.currentTarget.id));
   },
 
@@ -43,7 +44,7 @@ var TodosListItem = React.createClass({
     var todo = this.props.todo;
 
     return (
-      <div className='todo-item'>
+      <div className='todo-sidebar'>
         <TodoDetailView todo={todo}/>
         <StepsList todo={todo} />
         <DoneButton todo={todo}/>
@@ -65,18 +66,22 @@ var TodosForm = React.createClass({
   },
 
   updateTitle: function (e) {
+    e.preventDefault();
     this.setState({title: e.currentTarget.value});
   },
 
   updateBody: function (e) {
+    e.preventDefault();
     this.setState({body: e.currentTarget.value});
   },
 
   handleSubmit: function (e) {
+    e.preventDefault();
     TodoStore.create({
       title: this.state.title,
       body: this.state.body
     });
+    this.setState({title: "", body: ""})
   },
 
   render: function () {
@@ -113,14 +118,15 @@ var TodoDetailView = React.createClass({
   render: function () {
     var todo = this.props.todo;
     var body;
-
+    var titleClass = 'title'
     if (this.state.expanded) {
       body = <div className='body'>{todo.body}</div>;
+      titleClass += " expanded";
     }
 
     return (
       <div className="todo-item-detail">
-        <div onClick={this.toggleBody} className='title'>{todo.title}</div>
+        <div onClick={this.toggleBody} className={titleClass}>{todo.title}</div>
         {body}
       </div>
     );

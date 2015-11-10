@@ -59,7 +59,7 @@
         type: 'DELETE',
         dataType: 'json',
         success: function (data) {
-          _steps[id].splice(idx, 1);
+          _steps[todo_id].splice(idx, 1);
           StepStore.changed();
         }
       });

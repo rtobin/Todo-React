@@ -39,6 +39,7 @@ var StepsList = React.createClass({
 
 var StepsListItem = React.createClass({
   handleDestroy: function (e) {
+    e.preventDefault();
     StepStore.destroy(this.props.todo.id, parseInt(e.currentTarget.id));
   },
 
@@ -66,14 +67,17 @@ var StepsForm = React.createClass({
   },
 
   updateContent: function (e) {
+    e.preventDefault();
     this.setState({content: e.currentTarget.value});
   },
 
   handleSubmit: function (e) {
+    e.preventDefault();
     StepStore.create({
       content: this.state.content,
       todo_id: this.props.todo.id
     });
+    this.setState({content: ""})
   },
 
   render: function () {
